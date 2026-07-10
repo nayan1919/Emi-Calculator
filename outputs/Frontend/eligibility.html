@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Home Loan Eligibility Criteria Calculator — Check how much loan you're eligible for based on your monthly income.">
+    <meta name="keywords" content="Loan Eligibility, Home Loan, Eligibility Calculator, Maximum Loan Amount">
+    <title>Home Loan Eligibility Criteria — Check Your Eligibility</title>
+
+    <!-- Google Fonts — Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="app-header" role="banner">
+        <div class="header-inner">
+            <div class="logo" aria-label="EMI Calculator">
+                <span class="logo-icon" aria-hidden="true">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="5" width="20" height="14" rx="2"/>
+                        <line x1="2" y1="10" x2="22" y2="10"/>
+                    </svg>
+                </span>
+                <h1><a href="./index.html" class="abc">EMI Calculator</a></h1>
+            </div>
+            <div class="header-controls">
+                <!-- Currency Selector -->
+                <div class="currency-selector" role="group" aria-label="Currency selection">
+                    <label for="currency-select" class="sr-only">Select Currency</label>
+                    <select id="currency-select" aria-label="Currency">
+                        <option value="INR" selected>₹ INR</option>
+                        <option value="USD">$ USD</option>
+                        <option value="EUR">€ EUR</option>
+                        <option value="GBP">£ GBP</option>
+                    </select>
+                </div>
+                <!-- Theme Toggle -->
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle theme">
+                    <span class="theme-icon sun" aria-hidden="true">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                        </svg>
+                    </span>
+                    <span class="theme-icon moon" aria-hidden="true">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                    </span>
+                </button>
+                <!-- Built for Digital Heroes -->
+                <a href="https://digitalheroesco.com/" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;margin-left:10px;padding:8px 16px;background-color:#6c5ce7;color:#ffffff;font-family:Inter,sans-serif;font-size:13px;font-weight:600;text-decoration:none;border-radius:8px;white-space:nowrap;">Built for Digital Heroes</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== NAVIGATION BAR ===== -->
+    <nav class="app-nav" role="navigation" aria-label="Main navigation">
+        <div class="nav-inner">
+            <div class="nav-links">
+                <a href="calculator.html" class="nav-link" data-page="calculator">Home Loan EMI Calculator</a>
+                <a href="eligibility.html" class="nav-link active" data-page="eligibility">Home Loan Eligibility Criteria</a>
+            </div>
+            <button class="apply-online-btn" onclick="window.location.href='login.html'">
+                Apply Online
+            </button>
+        </div>
+    </nav>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="app-main" role="main">
+
+        <!-- Input + Results Grid -->
+        <div class="calculator-grid">
+
+            <!-- ===== INPUT CARD ===== -->
+            <section class="card input-card" aria-label="Income and loan parameters">
+                <h2 class="card-title">
+                    <span class="card-title-icon" aria-hidden="true">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                        </svg>
+                    </span>
+                    Your Income Details
+                </h2>
+
+                <!-- Monthly Income -->
+                <div class="input-group" id="monthly-income-group">
+                    <div class="input-header">
+                        <label for="monthly-income">Monthly Income</label>
+                        <div class="input-value-wrapper">
+                            <span class="currency-symbol" aria-hidden="true">₹</span>
+                            <input type="text" id="monthly-income" class="value-input" value="1,00,000" inputmode="numeric" aria-describedby="monthly-income-error" autocomplete="off">
+                        </div>
+                    </div>
+                    <input type="range" id="monthly-income-slider" class="slider" min="20000" max="500000" step="10000" value="100000" aria-label="Monthly income slider">
+                    <div class="slider-labels">
+                        <span>20K</span>
+                        <span>5L</span>
+                    </div>
+                    <span class="error-message" id="monthly-income-error" role="alert" aria-live="polite"></span>
+                </div>
+
+                <!-- Interest Rate -->
+                <div class="input-group" id="interest-rate-group">
+                    <div class="input-header">
+                        <label for="interest-rate">Interest Rate (p.a.)</label>
+                        <div class="input-value-wrapper">
+                            <input type="text" id="interest-rate" class="value-input rate-input" value="8.5" inputmode="decimal" aria-describedby="interest-rate-error" autocomplete="off">
+                            <span class="unit-symbol" aria-hidden="true">%</span>
+                        </div>
+                    </div>
+                    <input type="range" id="interest-rate-slider" class="slider" min="5" max="12" step="0.1" value="8.5" aria-label="Interest rate slider">
+                    <div class="slider-labels">
+                        <span>5%</span>
+                        <span>12%</span>
+                    </div>
+                    <span class="error-message" id="interest-rate-error" role="alert" aria-live="polite"></span>
+                </div>
+
+                <!-- Loan Tenure -->
+                <div class="input-group" id="loan-tenure-group">
+                    <div class="input-header">
+                        <label for="loan-tenure">Loan Tenure</label>
+                        <div class="input-value-wrapper">
+                            <input type="text" id="loan-tenure" class="value-input tenure-input" value="20" inputmode="numeric" aria-describedby="loan-tenure-error" autocomplete="off">
+                            <div class="tenure-toggle" role="radiogroup" aria-label="Tenure unit">
+                                <button type="button" class="toggle-btn active" data-unit="years" role="radio" aria-checked="true">Yr</button>
+                                <button type="button" class="toggle-btn" data-unit="months" role="radio" aria-checked="false">Mo</button>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="range" id="loan-tenure-slider" class="slider" min="5" max="30" step="1" value="20" aria-label="Loan tenure slider">
+                    <div class="slider-labels">
+                        <span id="tenure-min-label">5 Yr</span>
+                        <span id="tenure-max-label">30 Yr</span>
+                    </div>
+                    <span class="error-message" id="loan-tenure-error" role="alert" aria-live="polite"></span>
+                </div>
+
+                <!-- Eligibility Ratio -->
+                <div class="input-group" id="eligibility-ratio-group">
+                    <div class="input-header">
+                        <label for="eligibility-ratio">Eligibility Ratio</label>
+                        <span class="helper-text" style="font-size: 0.75rem; color: var(--text-muted);">% of monthly income</span>
+                    </div>
+                    <div class="eligibility-ratio-options">
+                        <button type="button" class="ratio-btn active" data-ratio="50">50%</button>
+                        <button type="button" class="ratio-btn" data-ratio="55">55%</button>
+                        <button type="button" class="ratio-btn" data-ratio="60">60%</button>
+                    </div>
+                </div>
+
+                <!-- Reset Button -->
+                <button type="button" id="reset-btn" class="reset-btn" aria-label="Reset all values to defaults">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                    </svg>
+                    Reset
+                </button>
+            </section>
+
+            <!-- ===== RESULTS SECTION ===== -->
+            <section class="results-section" aria-label="Eligibility results">
+
+                <!-- Eligibility Status Badge -->
+                <div id="eligibility-badge" class="eligibility-badge eligible">
+                    <span class="badge-icon">✅</span>
+                    <span class="badge-text">You are eligible for a home loan</span>
+                </div>
+
+                <!-- Result Cards -->
+                <div class="result-cards">
+                    <div class="result-card emi-card" id="result-max-loan">
+                        <span class="result-label">Maximum Loan</span>
+                        <span class="result-value" id="max-loan-value" aria-live="polite">₹0</span>
+                    </div>
+                    <div class="result-card interest-card" id="result-monthly-emi">
+                        <span class="result-label">Monthly EMI</span>
+                        <span class="result-value" id="monthly-emi-value" aria-live="polite">₹0</span>
+                        <span class="result-subtext" id="emi-percentage" style="font-size: 0.75rem; margin-top: 0.25rem; color: var(--text-muted);">0% of income</span>
+                    </div>
+                    <div class="result-card total-card" id="result-total-interest">
+                        <span class="result-label">Total Interest</span>
+                        <span class="result-value" id="total-interest-value" aria-live="polite">₹0</span>
+                    </div>
+                </div>
+
+                <!-- Doughnut Chart -->
+                <div class="card chart-card">
+                    <h2 class="card-title">
+                        <span class="card-title-icon" aria-hidden="true">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/>
+                            </svg>
+                        </span>
+                        Loan Breakdown
+                    </h2>
+                    <div class="chart-container">
+                        <canvas id="eligibility-chart" aria-label="Doughnut chart showing principal vs interest breakdown" role="img"></canvas>
+                    </div>
+                    <div class="chart-legend" id="chart-legend">
+                        <div class="legend-item">
+                            <span class="legend-dot principal-dot" aria-hidden="true"></span>
+                            <span class="legend-label">Principal</span>
+                            <span class="legend-value" id="legend-principal">₹0</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot interest-dot" aria-hidden="true"></span>
+                            <span class="legend-label">Interest</span>
+                            <span class="legend-value" id="legend-interest">₹0</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- ===== COMPARISON TABLE ===== -->
+        <section class="card comparison-card" aria-label="Loan eligibility comparison table">
+            <h2 class="card-title">
+                <span class="card-title-icon" aria-hidden="true">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/>
+                    </svg>
+                </span>
+                Maximum Loan at Different Tenures
+            </h2>
+            <div class="table-wrapper">
+                <table id="comparison-table" aria-label="Maximum loan eligibility for different loan tenures">
+                    <thead>
+                        <tr>
+                            <th scope="col">Tenure</th>
+                            <th scope="col">Maximum Loan</th>
+                            <th scope="col">Monthly EMI</th>
+                            <th scope="col">Total Interest</th>
+                        </tr>
+                    </thead>
+                    <tbody id="comparison-body">
+                        <!-- Rows generated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="app-footer" role="contentinfo">
+        <p>Plan smarter. Borrow wiser. Repay with confidence.</p>
+        <p class="footer-credit" style="margin-top:8px;font-size:13px;opacity:0.85;">
+            Developed by <strong>Nayan Dutta</strong>
+            &nbsp;&middot;&nbsp;
+            <a href="mailto:duttanayan1919@gmail.com" style="color:inherit;text-decoration:underline;">duttanayan1919@gmail.com</a>
+            &nbsp;&middot;&nbsp;
+            <a href="tel:+916900883337" style="color:inherit;text-decoration:underline;">+91 69008 83337</a>
+        </p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/utils.js"></script>
+    <script src="js/eligibility.js"></script>
+</body>
+</html>
