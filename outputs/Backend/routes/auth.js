@@ -160,7 +160,7 @@ router.post(
                     fullName,
                     email,
                 },
-                redirect: '/calculator.html',
+                redirect: "/calculator.html"
             });
         } catch (error) {
             console.error('❌ Signup Error:', error);
@@ -255,7 +255,7 @@ router.post(
                     fullName: user.full_name,
                     email: user.email,
                 },
-                redirect: '/calculator.html',
+                redirect: "/calculator.html"
             });
         } catch (error) {
             console.error('❌ Signin Error:', error);

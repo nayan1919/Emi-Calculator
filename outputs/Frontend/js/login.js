@@ -196,10 +196,11 @@
         btnText.style.display = 'none';
 
         // Simulate API call (replace with actual API endpoint)
-        fetch('/api/auth/signin', {
-            method: 'POST',
+        
+        fetch("http://localhost:5000/api/auth/signin", {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
             body: JSON.stringify(formData),
         })
@@ -404,7 +405,7 @@
         btnText.style.display = 'none';
 
         // Simulate API call (replace with actual API endpoint)
-        fetch('/api/auth/signup', {
+        fetch("http://localhost:5000/api/auth/signup", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
